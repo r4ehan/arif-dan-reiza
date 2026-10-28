@@ -29,28 +29,23 @@
 html {
   scroll-behavior: smooth;
 }
-
 * {
   font-family: "Work Sans", sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 html,
 body {
   overflow-x: hidden;
   max-width: 100%;
 }
-
 .huruf-sambung {
   font-family: "Sacramento", cursive;
 }
-
 body.transition {
   animation: fadeInAnimation ease 1.5s forwards;
 }
-
 @keyframes fadeInAnimation {
   0% {
     opacity: 0;
@@ -75,19 +70,16 @@ body.transition {
   justify-content: center;
   transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .cover-section.open {
   transform: scale(1.15);
   opacity: 0;
   pointer-events: none;
   filter: blur(8px);
 }
-
 .cover-content {
   animation: fadeInUp 1s ease;
   padding: 20px;
 }
-
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -98,7 +90,6 @@ body.transition {
     transform: none;
   }
 }
-
 .btn-cover-open {
   background: var(--emas-btn-gradasi);
   color: #241a03;
@@ -107,7 +98,6 @@ body.transition {
   box-shadow: 0 4px 15px rgba(224, 161, 15, 0.4);
   animation: pulseButton 2s infinite;
 }
-
 @keyframes pulseButton {
   0% {
     box-shadow: 0 0 0 0 rgba(224, 161, 15, 0.7);
@@ -121,8 +111,16 @@ body.transition {
 }
 
 /* =========================================
-   4. NAVIGATION BAR
+   4. NAVIGATION BAR - LAYOUT BARU
    ========================================= */
+
+/* Container untuk nav + tombol musik */
+#content-section {
+  position: relative;
+  z-index: 1000;
+}
+
+/* Navbar dengan 5 Icon */
 .nav {
   position: fixed;
   bottom: 0;
@@ -140,12 +138,11 @@ body.transition {
   );
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  height: 75px;
+  height: 65px;
   z-index: 1000;
   box-shadow:
     0 -4px 20px rgba(224, 161, 15, 0.4),
-    0 -2px 10px rgba(0, 0, 0, 0.2),
-    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    0 -2px 10px rgba(0, 0, 0, 0.2);
   border-top: 2px solid rgba(255, 233, 163, 0.5);
   padding: 0 10px;
 }
@@ -156,6 +153,7 @@ body.transition {
   justify-content: center;
   align-items: center;
   position: relative;
+  z-index: 1001;
 }
 
 .nav li a {
@@ -170,12 +168,13 @@ body.transition {
   font-size: 18px;
   position: relative;
   transition: all 0.3s ease;
-  padding: 8px 0;
+  padding: 5px 0;
+  z-index: 1001;
 }
 
 .nav li a:hover {
   color: #ffffff;
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   text-shadow: 0 0 10px rgba(255, 233, 163, 0.8);
 }
 
@@ -184,72 +183,8 @@ body.transition {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-/* Music Button */
-.nav li a.nav-item-music {
-  position: absolute;
-  top: -35px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 70px;
-  height: 70px;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 4px 15px rgba(0, 0, 0, 0.5),
-    0 0 0 4px rgba(224, 161, 15, 0.3),
-    inset 0 2px 4px rgba(255, 255, 255, 0.1);
-  border: 3px solid rgba(255, 233, 163, 0.4);
-  transition: all 0.3s ease;
-  z-index: 10;
-}
-
-.nav li a.nav-item-music:hover {
-  transform: translateX(-50%) scale(1.1);
-  box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.6),
-    0 0 0 6px rgba(224, 161, 15, 0.4),
-    0 0 20px rgba(255, 233, 163, 0.3);
-}
-
-.nav li a.nav-item-music i {
-  font-size: 28px;
-  color: #ffffff;
-  filter: none;
-}
-
-.nav li a.nav-item-music.rotate {
-  animation: rotateAnimation 8s linear infinite;
-}
-
-@keyframes rotateAnimation {
-  from {
-    transform: translateX(-50%) rotate(0deg);
-  }
-  to {
-    transform: translateX(-50%) rotate(360deg);
-  }
-}
-
-.nav .nav-music {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
-  position: absolute;
-  top: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  box-shadow:
-    0 4px 15px rgba(0, 0, 0, 0.4),
-    inset 0 2px 4px rgba(255, 255, 255, 0.05);
-  border: 3px solid rgba(255, 233, 163, 0.3);
-  z-index: 1;
-}
-
-.nav li:not(:nth-child(4)) a::after {
+/* Hover effect untuk icon */
+.nav li a::after {
   content: "";
   position: absolute;
   bottom: 5px;
@@ -259,53 +194,81 @@ body.transition {
   transition: width 0.3s ease;
 }
 
-.nav li:not(:nth-child(4)) a:hover::after {
+.nav li a:hover::after {
   width: 60%;
 }
 
-.nav li a::before {
-  content: "";
-  position: absolute;
-  top: 50%;
+/* Tombol musik tepat di atas ikon Galeri pada navbar */
+.nav-music-fab {
+  position: fixed;
+  bottom: calc(35px + 13px);
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  background: radial-gradient(
-    circle,
-    rgba(255, 233, 163, 0.3) 0%,
-    transparent 70%
-  );
+  transform: translateX(-50%);
+  width: 65px;
+  height: 65px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
   border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.5),
+    0 0 0 4px rgba(224, 161, 15, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.1);
+  border: 3px solid rgba(255, 233, 163, 0.5);
+  z-index: 1002;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-.nav li a:hover::before {
-  opacity: 1;
+.nav-music-fab:hover {
+  transform: translateX(-50%) scale(1.1);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.6),
+    0 0 0 6px rgba(224, 161, 15, 0.5),
+    0 0 20px rgba(255, 233, 163, 0.4);
 }
 
+.nav-music-fab i {
+  font-size: 26px;
+  color: #ffffff;
+  filter: none;
+}
+
+.nav-music-fab.rotate {
+  animation: rotateMusic 8s linear infinite;
+}
+
+@keyframes rotateMusic {
+  from {
+    transform: translateX(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateX(-50%) rotate(360deg);
+  }
+}
+
+/* Responsive Tablet */
 @media (max-width: 768px) {
-  .nav {
-    height: 70px;
-    padding: 0 5px;
+  .nav-music-fab {
+    width: 58px;
+    height: 58px;
   }
-  .nav li a i {
-    font-size: 18px;
+
+  .nav-music-fab i {
+    font-size: 22px;
   }
-  .nav li a.nav-item-music {
-    width: 60px;
-    height: 60px;
-    top: -30px;
+}
+
+/* Responsive HP Kecil */
+@media (max-width: 480px) {
+  .nav-music-fab {
+    width: 52px;
+    height: 52px;
   }
-  .nav li a.nav-item-music i {
-    font-size: 24px;
-  }
-  .nav .nav-music {
-    width: 70px;
-    height: 70px;
-    top: -35px;
+
+  .nav-music-fab i {
+    font-size: 20px;
   }
 }
 
@@ -317,27 +280,23 @@ body {
   background-image: url("../img/batik3.jpg");
   background-repeat: repeat;
   background-attachment: fixed;
+  padding-bottom: 70px !important; /* Mencegah footer tertutup nav */
 }
-
 .section-bg {
   background-color: rgba(10, 10, 10, 0.75);
   color: var(--text-light);
 }
-
 .section-title {
   text-align: center;
   padding-bottom: 30px;
 }
-
 .section-title h3 {
   margin: 15px 0 0 0;
   font-size: 28px;
 }
-
 .section-title p {
   margin: 15px auto 0 auto;
 }
-
 .text-pink {
   background: var(--emas-gradasi);
   -webkit-background-clip: text;
@@ -345,7 +304,6 @@ body {
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
-
 .btn-pink,
 .btn-kirim {
   background: var(--emas-btn-gradasi) !important;
@@ -354,16 +312,12 @@ body {
   font-weight: bold;
   box-shadow: 0 4px 14px rgba(224, 161, 15, 0.35);
 }
-
 .btn-pink:hover,
 .btn-kirim:hover {
   filter: brightness(1.12);
   color: #241a03 !important;
 }
 
-/* =========================================
-   6. WARNA TEKS DI BACKGROUND GELAP
-   ========================================= */
 .section-bg h1,
 .section-bg h2,
 .section-bg h3,
@@ -374,20 +328,18 @@ body {
 .section-bg label {
   color: #ffffff !important;
 }
-
 .section-bg small,
 .section-bg .text-muted {
   color: var(--text-muted-light) !important;
   opacity: 0.85;
 }
-
 .section-bg input::placeholder,
 .section-bg textarea::placeholder {
   color: #999999 !important;
 }
 
 /* =========================================
-   7. HERO SECTION
+   6. HERO SECTION
    ========================================= */
 #hero-section {
   width: 100%;
@@ -395,23 +347,16 @@ body {
   background: url("../img/8.jpg") center/cover no-repeat;
   position: relative;
 }
-
 #hero-section::before {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
 }
-
 #hero-section .container {
   position: relative;
   z-index: 2;
 }
-
-#hero-section h1 {
-  font-size: 64px;
-}
-
 #hero-section .btn-get-started {
   text-decoration: none;
   font-weight: bold;
@@ -425,7 +370,6 @@ body {
   border: none;
   box-shadow: 0 4px 14px rgba(224, 161, 15, 0.35);
 }
-
 .sparkle {
   position: absolute;
   width: 100%;
@@ -434,7 +378,7 @@ body {
 }
 
 /* =========================================
-   8. CARD ACARA
+   7. CARD ACARA
    ========================================= */
 .card-acara {
   border: 1px solid rgba(224, 161, 15, 0.5);
@@ -448,83 +392,21 @@ body {
   justify-content: center;
   text-align: center;
 }
-
 .card-acara h4,
 .card-acara p,
 .card-acara small {
   color: #ffffff !important;
 }
-
 .card-acara i {
   color: var(--emas-light) !important;
 }
-
 .card-acara hr {
   border-color: rgba(255, 255, 255, 0.3) !important;
   opacity: 0.5;
 }
 
 /* =========================================
-   9. CREDIT CARD (GIFT)
-   ========================================= */
-.credit-card {
-  background-color: var(--dark);
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  padding: 20px;
-  width: 300px;
-  color: var(--white);
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.card-logo {
-  width: 75px;
-  position: absolute;
-  top: 15px;
-  right: 15px;
-}
-
-.card-container {
-  display: flex;
-  align-items: center;
-  margin-top: 50px;
-}
-
-.card-sim {
-  width: 30px;
-  margin-right: 10px;
-}
-
-.card-number {
-  font-family: "Courier New", monospace;
-  font-size: 22px;
-}
-
-.card-name {
-  font-family: "Courier New", monospace;
-  font-size: 16px;
-  text-align: left;
-  margin-top: 10px;
-}
-
-.copy-button {
-  font-family: "Courier New", monospace;
-  position: absolute;
-  top: 5px;
-  left: 15px;
-  background-color: var(--white);
-  color: var(--dark);
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-/* =========================================
-   10. GALLERY
+   8. GALLERY & CUSTOM FULLSCREEN LIGHTBOX
    ========================================= */
 .insta-gallery {
   display: grid;
@@ -534,7 +416,6 @@ body {
   margin: 0 auto;
   padding: 0 20px;
 }
-
 .gallery-item {
   position: relative;
   aspect-ratio: 1;
@@ -543,7 +424,6 @@ body {
   background: #000;
   border-radius: 12px;
 }
-
 .gallery-item::after {
   content: "";
   position: absolute;
@@ -560,7 +440,6 @@ body {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
 }
-
 .gallery-img {
   width: 100%;
   height: 100%;
@@ -568,14 +447,6 @@ body {
   transition: transform 0.5s ease;
   border-radius: 10px;
 }
-
-.gallery-link {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
 .gallery-overlay {
   position: absolute;
   inset: 0;
@@ -587,14 +458,12 @@ body {
   transition: opacity 0.3s ease;
   border-radius: 10px;
 }
-
 .gallery-overlay i {
   color: #fff;
   font-size: 32px;
   transform: scale(0.8);
   transition: transform 0.3s ease;
 }
-
 .gallery-item:hover .gallery-overlay {
   opacity: 1;
 }
@@ -605,8 +474,142 @@ body {
   transform: scale(1.1);
 }
 
+/* Custom Lightbox Modal */
+.lightbox-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.95);
+  justify-content: center;
+  align-items: center;
+  animation: fadeInLightbox 0.3s ease;
+}
+.lightbox-modal.active {
+  display: flex;
+}
+@keyframes fadeInLightbox {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.lightbox-img {
+  max-width: 95%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+  animation: zoomInLightbox 0.4s ease;
+}
+@keyframes zoomInLightbox {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background: rgba(224, 161, 15, 0.9);
+  color: #241a03;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+.lightbox-close:hover {
+  background: #ffffff;
+  transform: rotate(90deg) scale(1.1);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(224, 161, 15, 0.8);
+  color: #241a03;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+.lightbox-nav:hover {
+  background: #ffffff;
+  transform: translateY(-50%) scale(1.1);
+}
+.lightbox-prev {
+  left: 20px;
+}
+.lightbox-next {
+  right: 20px;
+}
+
+.lightbox-counter {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffffff;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 8px 20px;
+  border-radius: 25px;
+  border: 1px solid rgba(224, 161, 15, 0.5);
+}
+
+@media (max-width: 768px) {
+  .lightbox-close {
+    top: 15px;
+    right: 15px;
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+  .lightbox-nav {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+  }
+  .lightbox-prev {
+    left: 10px;
+  }
+  .lightbox-next {
+    right: 10px;
+  }
+  .lightbox-counter {
+    bottom: 15px;
+    font-size: 14px;
+    padding: 6px 15px;
+  }
+}
+
 /* =========================================
-   11. UCAPAN & RSVP
+   9. UCAPAN & RSVP
    ========================================= */
 #rsvp-section .form-control,
 #rsvp-section .form-select {
@@ -614,14 +617,12 @@ body {
   color: #26302b;
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
-
 #rsvp-section .form-control:focus,
 #rsvp-section .form-select:focus {
   background: #ffffff;
   border-color: var(--emas);
   box-shadow: 0 0 0 3px rgba(224, 161, 15, 0.4);
 }
-
 .card-ucapan-item {
   background: rgba(255, 255, 255, 0.1) !important;
   border: 1px solid rgba(224, 161, 15, 0.3) !important;
@@ -629,22 +630,18 @@ body {
   border-radius: 12px;
   transition: all 0.3s ease;
 }
-
 .card-ucapan-item h6 {
   color: var(--white) !important;
   font-weight: 700 !important;
 }
-
 .card-ucapan-item small {
   color: var(--text-muted-light) !important;
   font-size: 12px !important;
 }
-
 .card-ucapan-item p {
   color: var(--white) !important;
   line-height: 1.6 !important;
 }
-
 .badge-status {
   background: #28a745 !important;
   color: var(--white) !important;
@@ -653,12 +650,10 @@ body {
   font-size: 11px !important;
   font-weight: 600 !important;
 }
-
 .pagination-ucapan {
   flex-wrap: wrap;
   gap: 10px;
 }
-
 .btn-pagination {
   background: var(--emas-btn-gradasi);
   color: #241a03;
@@ -669,13 +664,11 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .btn-pagination:disabled {
   opacity: 0.4;
   cursor: not-allowed;
   filter: grayscale(0.5);
 }
-
 #page-info {
   font-size: 14px;
   min-width: 120px;
@@ -684,7 +677,7 @@ body {
 }
 
 /* =========================================
-   12. PENUTUP & FOOTER
+   10. PENUTUP & FOOTER
    ========================================= */
 #penutup-section {
   position: relative;
@@ -693,7 +686,6 @@ body {
   display: flex;
   align-items: center;
 }
-
 #penutup-section::before {
   content: "";
   position: absolute;
@@ -709,29 +701,56 @@ body {
   background-position: center;
   background-size: cover;
 }
+#footer {
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.95),
+    #000
+  ) !important;
+  padding: 20px 20px 15px 20px !important;
+  margin-bottom: 0 !important;
+  position: relative;
+  z-index: 100;
+  border-top: 2px solid rgba(224, 161, 15, 0.4);
+}
+.footer-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.footer-logo img {
+  max-width: 80px;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px auto;
+  opacity: 0.95;
+  transition: all 0.3s ease;
+}
+.footer-logo img:hover {
+  opacity: 1;
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 6px rgba(224, 161, 15, 0.5));
+}
+#footer .text-pink {
+  font-size: 12px;
+  display: block;
+  margin-bottom: 3px;
+}
+#footer p.small {
+  font-size: 10px;
+  opacity: 0.6;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .footer-logo img {
+    max-width: 100px;
+  }
+}
 
 /* =========================================
-   13. SCROLLBAR & LAINNYA
-   ========================================= */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #2a2005;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--emas-gradasi);
-  border-radius: 3px;
-}
-
-iframe {
-  max-width: 100%;
-}
-
-/* =========================================
-   DEKORASI BATIK DI 4 SUDUT COVER
+   11. DEKORASI BATIK DI 4 SUDUT COVER
    ========================================= */
 .batik-cover {
   position: absolute;
@@ -744,40 +763,32 @@ iframe {
   pointer-events: none;
   opacity: 0.95;
 }
-
-/* Jika gambar asli untuk pojok kanan bawah */
 .batik-tl {
   top: 0;
   left: 0;
   transform: rotate(180deg);
 }
-
 .batik-tr {
   top: 0;
   right: 0;
   transform: rotate(270deg);
 }
-
 .batik-bl {
   bottom: 0;
   left: 0;
   transform: rotate(90deg);
 }
-
 .batik-br {
   bottom: 0;
   right: 0;
   transform: rotate(0deg);
 }
-
-/* Responsif untuk Mobile */
 @media (max-width: 768px) {
   .batik-cover {
     width: 130px;
     height: 130px;
   }
 }
-
 @media (max-width: 480px) {
   .batik-cover {
     width: 90px;
@@ -786,18 +797,16 @@ iframe {
 }
 
 /* =========================================
-   TURUT MENGUNDANG SECTION
+   12. TURUT MENGUNDANG SECTION
    ========================================= */
 .turut-mengundang-section {
   background-color: rgba(10, 10, 10, 0.75);
   color: var(--text-light);
 }
-
 .daftar-undang {
   max-width: 700px;
   margin: 0 auto;
 }
-
 .item-undang {
   padding: 18px 20px;
   margin-bottom: 12px;
@@ -807,14 +816,12 @@ iframe {
   backdrop-filter: blur(5px);
   transition: all 0.3s ease;
 }
-
 .item-undang:hover {
   border-color: rgba(224, 161, 15, 0.7);
   background: rgba(224, 161, 15, 0.08);
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(224, 161, 15, 0.15);
 }
-
 .item-undang .nomor {
   display: inline-block;
   background: var(--emas-btn-gradasi);
@@ -827,7 +834,6 @@ iframe {
   border-radius: 50%;
   margin-bottom: 10px;
 }
-
 .item-undang .jabatan {
   color: #ffffff !important;
   font-size: 15px;
@@ -835,7 +841,6 @@ iframe {
   margin: 8px 0 4px 0;
   line-height: 1.4;
 }
-
 .item-undang .nama {
   color: var(--emas-light) !important;
   font-size: 14px;
@@ -843,51 +848,39 @@ iframe {
   margin: 0;
   font-style: italic;
 }
-
-/* Responsif untuk Mobile */
 @media (max-width: 768px) {
   .item-undang {
     padding: 14px 15px;
     margin-bottom: 10px;
   }
-
   .item-undang .jabatan {
     font-size: 13px;
   }
-
   .item-undang .nama {
     font-size: 12px;
   }
 }
 
 /* =========================================
-   UKURAN FONT NAMA DI COVER
+   13. UKURAN FONT KHUSUS
    ========================================= */
 #cover-section .huruf-sambung {
-  font-size: 55px !important; /* ← UBAH ANGKA INI */
+  font-size: 55px !important;
   line-height: 1.2;
   letter-spacing: 1px;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
-
-/* Responsif untuk Tablet */
 @media (max-width: 768px) {
   #cover-section .huruf-sambung {
     font-size: 45px !important;
   }
 }
-
-/* Responsif untuk HP */
 @media (max-width: 480px) {
   #cover-section .huruf-sambung {
     font-size: 38px !important;
   }
 }
 
-/* =========================================
-   UKURAN FONT NAMA DI HERO SECTION
-   ========================================= */
-/* Hero Section - Nama Mempelai */
 #hero-section .huruf-sambung {
   font-size: 42px !important;
   line-height: 1.2;
@@ -895,32 +888,22 @@ iframe {
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
   margin: 8px 0;
 }
-
-/* Teks "Kepada Yth..." */
 #hero-section h4:not(.fw-bold) {
   font-size: 15px !important;
 }
-
-/* Teks tanggal */
 #hero-section h4.fw-bold {
   font-size: 17px !important;
 }
-
-/* Countdown */
 #countdown-wedding h5 {
   font-size: 20px !important;
 }
-
 #countdown-wedding small {
   font-size: 11px !important;
 }
-
-/* Tombol Scroll */
 #hero-section .btn-get-started {
   font-size: 13px !important;
   padding: 10px 24px !important;
 }
-
 @media (max-width: 480px) {
   #hero-section .huruf-sambung {
     font-size: 36px !important;
@@ -928,95 +911,18 @@ iframe {
 }
 
 /* =========================================
-   FOOTER LOGO PERCETAKAN
+   14. SCROLLBAR
    ========================================= */
-.footer-logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
+::-webkit-scrollbar {
+  width: 6px;
 }
-
-.footer-logo img {
-  max-width: 80px; /* Ukuran logo kecil */
-  height: auto;
-  opacity: 0.8;
-  transition: all 0.3s ease;
-  filter: brightness(1.2);
+::-webkit-scrollbar-track {
+  background: #2a2005;
 }
-
-.footer-logo img:hover {
-  opacity: 1;
-  transform: scale(1.05);
-  filter: brightness(1.3);
+::-webkit-scrollbar-thumb {
+  background: var(--emas-gradasi);
+  border-radius: 3px;
 }
-
-/* Responsif untuk Mobile */
-@media (max-width: 768px) {
-  .footer-logo img {
-    max-width: 60px;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer-logo img {
-    max-width: 50px;
-  }
-}
-
-/* =========================================
-   FOOTER - DIPERBAIKI
-   ========================================= */
-body {
-  padding-bottom: 70px !important; /* ← Kurangi dari 120/130px */
-}
-
-#footer {
-  background: linear-gradient(
-    to bottom,
-    rgba(10, 10, 10, 0.95),
-    #000
-  ) !important;
-  padding: 20px 20px 15px 20px !important; /* ← Kurangi padding */
-  margin-bottom: 0 !important; /* ← Hapus margin bawah */
-  position: relative;
-  z-index: 100;
-  border-top: 2px solid rgba(224, 161, 15, 0.4);
-}
-
-.footer-logo {
-  margin-bottom: 10px;
-}
-
-.footer-logo img {
-  max-width: 80px;
-  height: auto;
-  display: block;
-  margin: 0 auto 10px auto;
-  opacity: 0.95;
-  transition: all 0.3s ease;
-}
-
-.footer-logo img:hover {
-  opacity: 1;
-  transform: scale(1.08);
-  filter: drop-shadow(0 0 6px rgba(224, 161, 15, 0.5));
-}
-
-@media (max-width: 480px) {
-  .footer-logo img {
-    max-width: 100px;
-  }
-}
-
-#footer .text-pink {
-  font-size: 12px;
-  display: block;
-  margin-bottom: 3px; /* ← Kurangi dari 5px */
-}
-
-#footer p.small {
-  font-size: 10px;
-  opacity: 0.6;
-  margin: 0;
+iframe {
+  max-width: 100%;
 }
