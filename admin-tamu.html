@@ -1,0 +1,1030 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Data Tamu Undangan</title>
+    <link rel="icon" href="assets/img/logo.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --hijau: #1f3d33;
+        --hijau2: #2c5245;
+        --emas: #c2a05c;
+        --emas-tua: #a5854a;
+        --krem: #f5f1e8;
+        --merah: #b3453a;
+        --abu: #77807b;
+        --garis: #e4ddcf;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        color: #26302b;
+        min-height: 100vh;
+        padding: 28px 16px 60px;
+        background:
+          radial-gradient(
+            circle at 15% 10%,
+            rgba(194, 160, 92, 0.14),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 85% 90%,
+            rgba(31, 61, 51, 0.1),
+            transparent 45%
+          ),
+          var(--krem);
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+      }
+      header h1 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(26px, 4vw, 36px);
+        color: var(--hijau);
+        line-height: 1.1;
+      }
+      header p {
+        color: var(--abu);
+        font-size: 14px;
+        margin-top: 4px;
+      }
+      .badge {
+        background: var(--hijau);
+        color: #f4ead2;
+        border-radius: 999px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .badge b {
+        color: var(--emas);
+      }
+      .card {
+        background: #fff;
+        border: 1px solid var(--garis);
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 18px;
+        box-shadow: 0 6px 18px rgba(31, 61, 51, 0.06);
+      }
+      .card h2 {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--emas-tua);
+        margin-bottom: 12px;
+        font-weight: 700;
+      }
+      label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--hijau);
+        display: block;
+        margin-bottom: 6px;
+      }
+      input[type="text"],
+      input[type="url"],
+      input[type="number"],
+      select {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1.5px solid var(--garis);
+        border-radius: 9px;
+        font-family: inherit;
+        font-size: 14px;
+        background: #fdfcf9;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--emas);
+        box-shadow: 0 0 0 3px rgba(194, 160, 92, 0.2);
+      }
+      .hint {
+        font-size: 12px;
+        color: var(--abu);
+        margin-top: 8px;
+      }
+      .form-tamu {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .form-tamu input {
+        flex: 1;
+        min-width: 220px;
+      }
+      .btn {
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: 700;
+        border-radius: 9px;
+        padding: 11px 20px;
+        font-size: 14px;
+        transition: all 0.15s;
+      }
+      .btn:active {
+        transform: translateY(1px);
+      }
+      .btn-utama {
+        background: var(--hijau);
+        color: #f4ead2;
+      }
+      .btn-utama:hover {
+        background: var(--hijau2);
+        box-shadow: 0 6px 14px rgba(31, 61, 51, 0.25);
+      }
+      .btn-sekunder {
+        background: transparent;
+        color: var(--hijau);
+        border: 1.5px solid var(--hijau);
+      }
+      .btn-sekunder:hover {
+        background: rgba(31, 61, 51, 0.07);
+      }
+      .btn-bahaya {
+        background: transparent;
+        color: var(--merah);
+        border: 1.5px solid var(--merah);
+      }
+      .btn-bahaya:hover {
+        background: rgba(179, 69, 58, 0.08);
+      }
+      .toolbar {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .toolbar input {
+        flex: 1;
+        min-width: 200px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      thead th {
+        text-align: left;
+        padding: 10px 12px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--abu);
+        border-bottom: 2px solid var(--garis);
+      }
+      tbody td {
+        padding: 12px;
+        border-bottom: 1px solid var(--garis);
+        vertical-align: middle;
+      }
+      tbody tr {
+        animation: muncul 0.25s ease;
+      }
+      tbody tr:hover td {
+        background: rgba(194, 160, 92, 0.07);
+      }
+      @keyframes muncul {
+        from {
+          opacity: 0;
+          transform: translateY(-4px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .nama-tamu {
+        font-weight: 700;
+        color: var(--hijau);
+      }
+      .link {
+        font-size: 12.5px;
+        color: var(--abu);
+        word-break: break-all;
+        max-width: 300px;
+        display: block;
+        margin-top: 2px;
+      }
+      .aksi {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .btn-kecil {
+        border: 1.5px solid var(--garis);
+        background: #fff;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--hijau);
+        padding: 6px 10px;
+        border-radius: 7px;
+        transition: all 0.15s;
+      }
+      .btn-kecil:hover {
+        border-color: var(--hijau);
+        background: var(--hijau);
+        color: #f4ead2;
+      }
+      .btn-kecil.wa:hover {
+        border-color: #128c5e;
+        background: #128c5e;
+      }
+      .btn-kecil.hapus {
+        color: var(--merah);
+      }
+      .btn-kecil.hapus:hover {
+        border-color: var(--merah);
+        background: var(--merah);
+        color: #fff;
+      }
+      .btn-kecil.tersalin {
+        border-color: var(--emas-tua);
+        background: var(--emas);
+        color: #fff;
+      }
+      .kosong td {
+        text-align: center;
+        color: var(--abu);
+        padding: 36px 12px;
+      }
+
+      /* Tab Navigation */
+      .tab-nav {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        border-bottom: 2px solid var(--garis);
+        padding-bottom: 10px;
+      }
+      .tab-btn {
+        padding: 10px 20px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: 600;
+        color: var(--abu);
+        border-radius: 8px 8px 0 0;
+        transition: all 0.2s;
+        font-size: 14px;
+      }
+      .tab-btn:hover {
+        background: rgba(31, 61, 51, 0.05);
+        color: var(--hijau);
+      }
+      .tab-btn.active {
+        background: var(--hijau);
+        color: #f4ead2;
+        border-bottom: 3px solid var(--emas);
+      }
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+      }
+
+      /* Status Badge */
+      .status-hadir {
+        background: #28a745;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .status-tidak {
+        background: #dc3545;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .status-ragu {
+        background: #ffc107;
+        color: #000;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      /* Ucapan Item */
+      .ucapan-item {
+        background: #f9f7f2;
+        border-left: 4px solid var(--emas);
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 12px;
+      }
+      .ucapan-item .ucapan-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .ucapan-item .ucapan-nama {
+        font-weight: 700;
+        color: var(--hijau);
+      }
+      .ucapan-item .ucapan-tanggal {
+        font-size: 12px;
+        color: var(--abu);
+      }
+      .ucapan-item .ucapan-pesan {
+        color: #26302b;
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      #toast {
+        position: fixed;
+        left: 50%;
+        bottom: 28px;
+        transform: translateX(-50%) translateY(20px);
+        background: var(--hijau);
+        color: #f4ead2;
+        padding: 12px 22px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 600;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 20px rgba(31, 61, 51, 0.3);
+        z-index: 99;
+      }
+      #toast.muncul {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      @media (max-width: 640px) {
+        thead {
+          display: none;
+        }
+        tbody tr {
+          display: block;
+          border: 1px solid var(--garis);
+          border-radius: 10px;
+          margin-bottom: 10px;
+          padding: 6px;
+        }
+        tbody td {
+          display: block;
+          border: none;
+          padding: 6px 10px;
+        }
+        .link {
+          max-width: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div>
+          <h1>Admin Undangan</h1>
+          <p>Kelola tamu, RSVP, dan ucapan</p>
+        </div>
+        <div class="badge">Total tamu: <b id="jumlah-tamu">0</b></div>
+      </header>
+
+      <!-- Tab Navigation -->
+      <div class="tab-nav">
+        <button class="tab-btn active" data-tab="tamu">
+          <i class="fas fa-users"></i> Daftar Tamu
+        </button>
+        <button class="tab-btn" data-tab="rsvp">
+          <i class="fas fa-check-circle"></i> RSVP
+          <span id="badge-rsvp" class="badge-count">0</span>
+        </button>
+        <button class="tab-btn" data-tab="ucapan">
+          <i class="fas fa-comments"></i> Ucapan
+          <span id="badge-ucapan" class="badge-count">0</span>
+        </button>
+      </div>
+
+      <!-- TAB 1: DAFTAR TAMU -->
+      <div class="tab-content active" id="tab-tamu">
+        <div class="card">
+          <h2>1 · Alamat Web Undangan</h2>
+          <label for="inp-url">Link undangan kamu (tanpa nama tamu)</label>
+          <input
+            type="url"
+            id="inp-url"
+            placeholder="https://domainkamu.com/undangan/index.html"
+          />
+          <p class="hint">
+            Link tamu dibuat otomatis dari alamat ini +
+            <code>?to=NamaTamu</code>. Isi dengan link live web kamu.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>2 · Tambah Tamu</h2>
+          <form class="form-tamu" id="form-tamu">
+            <input
+              type="text"
+              id="inp-nama"
+              placeholder="Contoh: Budi Santoso & Keluarga"
+              autocomplete="off"
+              required
+            />
+            <button type="submit" class="btn btn-utama">+ Tambah Tamu</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2>3 · Daftar Tamu</h2>
+          <div class="toolbar">
+            <input
+              type="text"
+              id="inp-cari"
+              placeholder="🔍 Cari nama tamu..."
+            />
+            <button class="btn btn-sekunder" id="btn-csv">⬇ Export CSV</button>
+            <button class="btn btn-bahaya" id="btn-hapus-semua">
+              Hapus Semua
+            </button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama Tamu</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 2: RSVP -->
+      <div class="tab-content" id="tab-rsvp">
+        <div class="card">
+          <h2>Data Konfirmasi Kehadiran (RSVP)</h2>
+          <div class="toolbar">
+            <input
+              type="text"
+              id="inp-cari-rsvp"
+              placeholder="🔍 Cari nama..."
+            />
+            <select id="filter-status" style="max-width: 200px">
+              <option value="all">Semua Status</option>
+              <option value="Hadir">Hadir</option>
+              <option value="Tidak Hadir">Tidak Hadir</option>
+              <option value="Masih Ragu">Masih Ragu</option>
+            </select>
+            <button class="btn btn-sekunder" id="btn-export-rsvp">
+              ⬇ Export CSV
+            </button>
+            <button class="btn btn-bahaya" id="btn-hapus-rsvp">
+              Hapus Semua
+            </button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Jumlah</th>
+                <th>Status</th>
+                <th>Tanggal</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-rsvp"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 3: UCAPAN -->
+      <div class="tab-content" id="tab-ucapan">
+        <div class="card">
+          <h2>Ucapan & Doa dari Tamu</h2>
+          <div class="toolbar">
+            <input
+              type="text"
+              id="inp-cari-ucapan"
+              placeholder="🔍 Cari nama atau ucapan..."
+            />
+            <button class="btn btn-sekunder" id="btn-export-ucapan">
+              ⬇ Export CSV
+            </button>
+            <button class="btn btn-bahaya" id="btn-hapus-ucapan">
+              Hapus Semua
+            </button>
+          </div>
+          <div id="daftar-ucapan-admin"></div>
+        </div>
+      </div>
+    </div>
+    <div id="toast"></div>
+
+    <script>
+      // PASSWORD PROMPT SUDAH DIHAPUS DI SINI
+
+      const KEY_TAMU = "undangan_tamu";
+      const KEY_URL = "undangan_base_url";
+      const KEY_RSVp = "undangan_rsvp";
+      const KEY_UCAPAN = "undangan_ucapan";
+
+      let daftarTamu = JSON.parse(localStorage.getItem(KEY_TAMU) || "[]");
+      let daftarRsvp = JSON.parse(localStorage.getItem(KEY_RSVp) || "[]");
+      let daftarUcapan = JSON.parse(localStorage.getItem(KEY_UCAPAN) || "[]");
+
+      const inpUrl = document.getElementById("inp-url");
+      const inpNama = document.getElementById("inp-nama");
+      const inpCari = document.getElementById("inp-cari");
+      const tbody = document.getElementById("tbody");
+      const jumlahEl = document.getElementById("jumlah-tamu");
+
+      /* ---- Tab Navigation ---- */
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          document
+            .querySelectorAll(".tab-btn")
+            .forEach((b) => b.classList.remove("active"));
+          document
+            .querySelectorAll(".tab-content")
+            .forEach((c) => c.classList.remove("active"));
+          this.classList.add("active");
+          document
+            .getElementById("tab-" + this.dataset.tab)
+            .classList.add("active");
+
+          if (this.dataset.tab === "rsvp") renderRsvp();
+          if (this.dataset.tab === "ucapan") renderUcapan();
+        });
+      });
+
+      /* ---- Base URL ---- */
+      function defaultBaseUrl() {
+        const u = new URL(window.location.href);
+        const seg = u.pathname.split("/");
+        seg.pop();
+        return u.origin + seg.join("/") + "/index.html";
+      }
+      inpUrl.value = localStorage.getItem(KEY_URL) || defaultBaseUrl();
+      inpUrl.addEventListener("change", () => {
+        localStorage.setItem(KEY_URL, inpUrl.value.trim());
+        render(inpCari.value);
+        toast("Alamat undangan disimpan");
+      });
+
+      function buatLink(nama) {
+        return inpUrl.value.trim() + "?to=" + encodeURIComponent(nama);
+      }
+      function simpan() {
+        localStorage.setItem(KEY_TAMU, JSON.stringify(daftarTamu));
+        render(inpCari.value);
+      }
+      function escapeHtml(s) {
+        return s.replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      }
+
+      /* ---- Tambah Tamu ---- */
+      document.getElementById("form-tamu").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const nama = inpNama.value.trim();
+        if (!nama) return;
+        daftarTamu.push(nama);
+        inpNama.value = "";
+        inpNama.focus();
+        simpan();
+        toast('Tamu "' + nama + '" ditambahkan');
+      });
+
+      /* ---- Render Tabel Tamu ---- */
+      function render(filter = "") {
+        tbody.innerHTML = "";
+        jumlahEl.textContent = daftarTamu.length;
+        const tampil = daftarTamu
+          .map((nama, i) => ({ nama, i }))
+          .filter((t) => t.nama.toLowerCase().includes(filter.toLowerCase()));
+
+        if (tampil.length === 0) {
+          tbody.innerHTML =
+            '<tr class="kosong"><td colspan="3">' +
+            (daftarTamu.length === 0
+              ? "Belum ada tamu. Yuk tambahkan 👆"
+              : "Tidak ada nama yang cocok.") +
+            "</td></tr>";
+          return;
+        }
+
+        tampil.forEach(({ nama, i }, urutan) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${urutan + 1}</td>
+            <td><span class="nama-tamu">${escapeHtml(nama)}</span><span class="link">${escapeHtml(buatLink(nama))}</span></td>
+            <td>
+              <div class="aksi">
+                <button class="btn-kecil" data-aksi="salin" data-i="${i}">📋 Salin</button>
+                <button class="btn-kecil wa" data-aksi="wa" data-i="${i}">💬 WA</button>
+                <button class="btn-kecil" data-aksi="tes" data-i="${i}">👁 Tes</button>
+                <button class="btn-kecil" data-aksi="edit" data-i="${i}">✏️ Edit</button>
+                <button class="btn-kecil hapus" data-i="${i}" data-aksi="hapus">🗑</button>
+              </div>
+            </td>`;
+          tbody.appendChild(tr);
+        });
+      }
+
+      /* ---- Aksi Tabel Tamu ---- */
+      tbody.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-aksi]");
+        if (!btn) return;
+        const i = Number(btn.dataset.i);
+        const nama = daftarTamu[i];
+        const link = buatLink(nama);
+
+        switch (btn.dataset.aksi) {
+          case "salin":
+            salinTeks(link, () => {
+              btn.textContent = "✓ Tersalin";
+              btn.classList.add("tersalin");
+              setTimeout(() => {
+                btn.textContent = "📋 Salin";
+                btn.classList.remove("tersalin");
+              }, 1500);
+            });
+            break;
+          case "wa":
+            window.open(
+              "https://wa.me/?text=" +
+                encodeURIComponent(
+                  `Kepada Yth. ${nama},\n\nDengan hormat, kami mengundang Anda untuk hadir di acara pernikahan kami. Detail acara dapat dilihat pada link berikut:\n\n${link}\n\nTerima kasih 🙏`,
+                ),
+              "_blank",
+            );
+            break;
+          case "tes":
+            window.open(link, "_blank");
+            break;
+          case "hapus":
+            if (confirm(`Hapus tamu "${nama}"?`)) {
+              daftarTamu.splice(i, 1);
+              simpan();
+              toast("Tamu dihapus");
+            }
+            break;
+          case "edit":
+            modeEdit(i);
+            break;
+          case "simpan-edit":
+            simpanEdit(i, btn.closest("tr").querySelector("input").value);
+            break;
+          case "batal-edit":
+            render(inpCari.value);
+            break;
+        }
+      });
+
+      function modeEdit(i) {
+        const baris = tbody.querySelector(`[data-i="${i}"]`)?.closest("tr");
+        if (!baris) return;
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = daftarTamu[i];
+        baris.querySelector(".nama-tamu").replaceWith(input);
+        input.focus();
+        input.select();
+        baris.querySelector(".aksi").innerHTML = `
+          <button class="btn-kecil" data-aksi="simpan-edit" data-i="${i}">💾 Simpan</button>
+          <button class="btn-kecil" data-aksi="batal-edit" data-i="${i}">Batal</button>`;
+        input.addEventListener("keydown", (ev) => {
+          if (ev.key === "Enter") simpanEdit(i, input.value);
+          if (ev.key === "Escape") render(inpCari.value);
+        });
+      }
+
+      function simpanEdit(i, nilai) {
+        const baru = nilai.trim();
+        if (baru && baru !== daftarTamu[i]) {
+          daftarTamu[i] = baru;
+          simpan();
+          toast("Nama tamu diperbarui");
+        } else render(inpCari.value);
+      }
+
+      /* ---- Render RSVP ---- */
+      function renderRsvp(filter = "", statusFilter = "all") {
+        const tbodyRsvp = document.getElementById("tbody-rsvp");
+        const badgeRsvp = document.getElementById("badge-rsvp");
+        tbodyRsvp.innerHTML = "";
+        badgeRsvp.textContent = daftarRsvp.length;
+
+        let tampil = daftarRsvp.map((r, i) => ({ ...r, i }));
+        if (filter)
+          tampil = tampil.filter((r) =>
+            r.nama.toLowerCase().includes(filter.toLowerCase()),
+          );
+        if (statusFilter !== "all")
+          tampil = tampil.filter((r) => r.status === statusFilter);
+
+        if (tampil.length === 0) {
+          tbodyRsvp.innerHTML =
+            '<tr class="kosong"><td colspan="6">Belum ada data RSVP</td></tr>';
+          return;
+        }
+
+        tampil.forEach((r, urutan) => {
+          const statusClass =
+            r.status === "Hadir"
+              ? "status-hadir"
+              : r.status === "Tidak Hadir"
+                ? "status-tidak"
+                : "status-ragu";
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${urutan + 1}</td>
+            <td><span class="nama-tamu">${escapeHtml(r.nama)}</span></td>
+            <td>${r.jumlah} orang</td>
+            <td><span class="${statusClass}">${r.status}</span></td>
+            <td><small>${r.tanggal}</small></td>
+            <td>
+              <div class="aksi">
+                <button class="btn-kecil hapus" data-aksi="hapus-rsvp" data-i="${r.i}">🗑 Hapus</button>
+              </div>
+            </td>`;
+          tbodyRsvp.appendChild(tr);
+        });
+      }
+
+      /* ---- Render Ucapan ---- */
+      function renderUcapan(filter = "") {
+        const container = document.getElementById("daftar-ucapan-admin");
+        const badgeUcapan = document.getElementById("badge-ucapan");
+        container.innerHTML = "";
+        badgeUcapan.textContent = daftarUcapan.length;
+
+        let tampil = daftarUcapan.map((u, i) => ({ ...u, i }));
+        if (filter)
+          tampil = tampil.filter(
+            (u) =>
+              u.nama.toLowerCase().includes(filter.toLowerCase()) ||
+              u.pesan.toLowerCase().includes(filter.toLowerCase()),
+          );
+
+        if (tampil.length === 0) {
+          container.innerHTML =
+            '<div class="text-center py-4" style="color: var(--abu);">Belum ada ucapan</div>';
+          return;
+        }
+
+        tampil.forEach((u) => {
+          const statusClass =
+            u.hadir === "Hadir"
+              ? "status-hadir"
+              : u.hadir === "Tidak Hadir"
+                ? "status-tidak"
+                : "status-ragu";
+          const div = document.createElement("div");
+          div.className = "ucapan-item";
+          div.innerHTML = `
+            <div class="ucapan-header">
+              <div>
+                <span class="ucapan-nama">${escapeHtml(u.nama)}</span>
+                <span class="ucapan-tanggal"> · ${u.tanggal}</span>
+              </div>
+              <span class="${statusClass}">${u.hadir}</span>
+            </div>
+            <div class="ucapan-pesan">${escapeHtml(u.pesan)}</div>
+            <div class="aksi mt-2">
+              <button class="btn-kecil hapus" data-aksi="hapus-ucapan" data-i="${u.i}">🗑 Hapus</button>
+            </div>`;
+          container.appendChild(div);
+        });
+      }
+
+      /* ---- Event Listeners RSVP & Ucapan ---- */
+      document
+        .getElementById("inp-cari-rsvp")
+        ?.addEventListener("input", (e) => {
+          renderRsvp(
+            e.target.value,
+            document.getElementById("filter-status").value,
+          );
+        });
+      document
+        .getElementById("filter-status")
+        ?.addEventListener("change", (e) => {
+          renderRsvp(
+            document.getElementById("inp-cari-rsvp").value,
+            e.target.value,
+          );
+        });
+
+      document.getElementById("tbody-rsvp")?.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-aksi]");
+        if (!btn) return;
+        if (btn.dataset.aksi === "hapus-rsvp") {
+          const i = Number(btn.dataset.i);
+          if (confirm("Hapus data RSVP ini?")) {
+            daftarRsvp.splice(i, 1);
+            localStorage.setItem(KEY_RSVp, JSON.stringify(daftarRsvp));
+            renderRsvp();
+            toast("Data RSVP dihapus");
+          }
+        }
+      });
+
+      document
+        .getElementById("inp-cari-ucapan")
+        ?.addEventListener("input", (e) => {
+          renderUcapan(e.target.value);
+        });
+
+      document
+        .getElementById("daftar-ucapan-admin")
+        ?.addEventListener("click", (e) => {
+          const btn = e.target.closest("[data-aksi]");
+          if (!btn) return;
+          if (btn.dataset.aksi === "hapus-ucapan") {
+            const i = Number(btn.dataset.i);
+            if (confirm("Hapus ucapan ini?")) {
+              daftarUcapan.splice(i, 1);
+              localStorage.setItem(KEY_UCAPAN, JSON.stringify(daftarUcapan));
+              renderUcapan();
+              toast("Ucapan dihapus");
+            }
+          }
+        });
+
+      /* ---- Export CSV ---- */
+      document.getElementById("btn-csv").addEventListener("click", () => {
+        if (daftarTamu.length === 0) {
+          toast("Belum ada tamu");
+          return;
+        }
+        const baris = [["No", "Nama Tamu", "Link"]];
+        daftarTamu.forEach((n, i) => baris.push([i + 1, n, buatLink(n)]));
+        downloadCSV(baris, "daftar-tamu.csv");
+      });
+
+      document
+        .getElementById("btn-export-rsvp")
+        ?.addEventListener("click", () => {
+          if (daftarRsvp.length === 0) {
+            toast("Belum ada RSVP");
+            return;
+          }
+          const baris = [["No", "Nama", "Jumlah", "Status", "Tanggal"]];
+          daftarRsvp.forEach((r, i) =>
+            baris.push([i + 1, r.nama, r.jumlah, r.status, r.tanggal]),
+          );
+          downloadCSV(baris, "data-rsvp.csv");
+        });
+
+      document
+        .getElementById("btn-export-ucapan")
+        ?.addEventListener("click", () => {
+          if (daftarUcapan.length === 0) {
+            toast("Belum ada ucapan");
+            return;
+          }
+          const baris = [["No", "Nama", "Status", "Ucapan", "Tanggal"]];
+          daftarUcapan.forEach((u, i) =>
+            baris.push([i + 1, u.nama, u.hadir, u.pesan, u.tanggal]),
+          );
+          downloadCSV(baris, "data-ucapan.csv");
+        });
+
+      function downloadCSV(baris, filename) {
+        const csv = baris
+          .map((b) =>
+            b.map((k) => `"${String(k).replaceAll('"', '""')}"`).join(","),
+          )
+          .join("\r\n");
+        const blob = new Blob(["\ufeff" + csv], {
+          type: "text/csv;charset=utf-8",
+        });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        a.click();
+      }
+
+      /* ---- Hapus Semua ---- */
+      document
+        .getElementById("btn-hapus-semua")
+        .addEventListener("click", () => {
+          if (daftarTamu.length === 0) return;
+          if (confirm("Hapus SEMUA data tamu?")) {
+            daftarTamu = [];
+            simpan();
+            toast("Semua tamu dihapus");
+          }
+        });
+
+      document
+        .getElementById("btn-hapus-rsvp")
+        ?.addEventListener("click", () => {
+          if (daftarRsvp.length === 0) return;
+          if (confirm("Hapus SEMUA data RSVP?")) {
+            daftarRsvp = [];
+            localStorage.setItem(KEY_RSVp, "[]");
+            renderRsvp();
+            toast("Semua RSVP dihapus");
+          }
+        });
+
+      document
+        .getElementById("btn-hapus-ucapan")
+        ?.addEventListener("click", () => {
+          if (daftarUcapan.length === 0) return;
+          if (confirm("Hapus SEMUA ucapan?")) {
+            daftarUcapan = [];
+            localStorage.setItem(KEY_UCAPAN, "[]");
+            renderUcapan();
+            toast("Semua ucapan dihapus");
+          }
+        });
+
+      /* ---- Util ---- */
+      function salinTeks(teks, sukses) {
+        const done = () => {
+          toast("Link disalin ✓");
+          sukses && sukses();
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(teks).then(done).catch(fallback);
+        } else fallback();
+        function fallback() {
+          const ta = document.createElement("textarea");
+          ta.value = teks;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          ta.remove();
+          done();
+        }
+      }
+
+      const toastEl = document.getElementById("toast");
+      let toastTimer;
+      function toast(pesan) {
+        toastEl.textContent = pesan;
+        toastEl.classList.add("muncul");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.remove("muncul"), 1800);
+      }
+
+      inpCari.addEventListener("input", () => render(inpCari.value));
+
+      /* ---- Init ---- */
+      render();
+      renderRsvp();
+      renderUcapan();
+    </script>
+  </body>
+</html>
