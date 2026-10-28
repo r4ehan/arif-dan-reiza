@@ -699,11 +699,47 @@
             });
             break;
           case "wa":
+            const pesanWA = `Kepada Yth.
+Bapak/Ibu/Saudara/i
+*${nama}*
+_di tempat_
+
+_Bismillahirrahmanirrahim_
+_Assalamu'alaikum Wr. Wb._
+
+Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.
+
+*Arif & Reiza*
+
+Yang insyaAllah akan dilaksanakan pada:
+
+*Akad Nikah:*
+• Tanggal : Senin, 30 November 2026
+• Pukul : 08.00 WIB
+• Tempat : Dusun V Umbul Tengah, Kampung Bengkulu Tengah, Kecamatan Gunung Labuhan
+
+*Resepsi:*
+• Tanggal : Selasa 01 Desember 2026
+• Pukul : 08.00 WIB s.d. selesai
+• Tempat : Dusun V Umbul Tengah, Kampung Bengkulu Tengah, Kecamatan Gunung Labuhan
+
+*Klik link di bawah ini* untuk melihat undangan dan informasi selengkapnya:
+
+🔗 ${link}
+
+Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu kepada kami.
+
+Atas kehadiran dan doa restunya, kami ucapkan terima kasih.
+
+_Wassalamu'alaikum Wr. Wb._
+
+Hormat kami,
+*Arif & Reiza*
+
+_Mohon maaf perihal undangan hanya dibagikan melalui pesan ini._`;
+
             window.open(
-              "https://wa.me/?text=" +
-                encodeURIComponent(
-                  `Kepada Yth. ${nama},\n\nDengan hormat, kami mengundang Anda untuk hadir di acara pernikahan kami. Detail acara dapat dilihat pada link berikut:\n\n${link}\n\nTerima kasih 🙏`,
-                ),
+              "https://wa.me/?text=" + encodeURIComponent(pesanWA),
               "_blank",
             );
             break;
