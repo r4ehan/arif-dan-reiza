@@ -6,20 +6,12 @@ var isPlaying = false;
 
 function mulai() {
   window.scrollTo(0, 0);
-
-  // Putar musik
   music.play();
   isPlaying = true;
-
-  // Animasi cover menghilang
   var cover = document.getElementById("cover-section");
   cover.classList.add("open");
-
-  // Aktifkan scroll body
   $("body").removeClass("overflow-hidden");
   $("body").addClass("transition");
-
-  // Hapus cover dari DOM setelah animasi selesai agar tidak menghalangi klik
   setTimeout(() => {
     cover.style.display = "none";
   }, 1200);
@@ -28,7 +20,6 @@ function mulai() {
 function toggleMusic(event) {
   event.preventDefault();
   const musicButton = document.getElementById("music-button");
-
   if (isPlaying) {
     musicButton.innerHTML = '<i class="fas fa-fw fa-pause"></i>';
     musicButton.classList.remove("rotate");
@@ -46,7 +37,6 @@ var countdownDate = new Date("Nov 30, 2026 08:00:00").getTime();
 var x = setInterval(function () {
   var now = new Date().getTime();
   var distance = countdownDate - now;
-
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -67,7 +57,7 @@ var x = setInterval(function () {
   }
 }, 1000);
 
-// 3. Nama Sambutan Tamu (URL Parameter)
+// 3. Nama Sambutan Tamu
 const urlParams = new URLSearchParams(window.location.search);
 const namaSambutan = document.querySelector("#nama-sambutan");
 const namaSambutanCover = document.querySelector("#nama-sambutan-cover");
@@ -88,24 +78,7 @@ if (urlParams.get("to")) {
   setNamaTamu(gabungan || "Tamu Undangan");
 }
 
-// 4. Copy Text (Rekening)
-function copyText(el) {
-  var content = jQuery(el)
-    .siblings("div.card-container")
-    .find("div.card-number")
-    .text()
-    .trim()
-    .replace(/\s+/g, "");
-  navigator.clipboard.writeText(content).then(() => {
-    var originalText = jQuery(el).html();
-    jQuery(el).text("Berhasil di copy");
-    setTimeout(() => {
-      jQuery(el).html(originalText);
-    }, 1500);
-  });
-}
-
-// 5. RSVP & Ucapan (Disimpan ke LocalStorage untuk Admin)
+// 4. RSVP & Ucapan
 window.addEventListener("load", function () {
   const form = document.getElementById("rsvp-form");
   if (form) {
@@ -125,10 +98,8 @@ window.addEventListener("load", function () {
         return;
       }
 
-      // Simpan ke LocalStorage (Bisa dibaca oleh admin.html)
       const KEY_RSVp = "undangan_rsvp";
       const KEY_UCAPAN = "undangan_ucapan";
-
       let daftarRsvp = JSON.parse(localStorage.getItem(KEY_RSVp) || "[]");
       let daftarUcapan = JSON.parse(localStorage.getItem(KEY_UCAPAN) || "[]");
 
@@ -162,7 +133,7 @@ window.addEventListener("load", function () {
   loadUcapan();
 });
 
-// 6. Logika Pagination Ucapan
+// 5. Logika Pagination Ucapan
 const KEY_UCAPAN = "undangan_ucapan";
 const UCAPAN_PER_PAGE = 5;
 let currentPage = 1;
@@ -184,8 +155,7 @@ function loadUcapan() {
     return;
   }
 
-  daftarUcapan.sort((a, b) => b.id - a.id); // Urutkan terbaru
-
+  daftarUcapan.sort((a, b) => b.id - a.id);
   const totalPages = Math.ceil(daftarUcapan.length / UCAPAN_PER_PAGE);
   if (currentPage > totalPages) currentPage = totalPages;
   if (currentPage < 1) currentPage = 1;
@@ -205,15 +175,11 @@ function loadUcapan() {
       return `
       <div class="card-ucapan-item p-3 mb-3">
         <div class="d-flex justify-content-between align-items-start mb-2">
-          <div>
-            <h6 class="mb-1">${escapeHtml(ucapan.nama)}</h6>
-            <small>${ucapan.tanggal}</small>
-          </div>
+          <div><h6 class="mb-1">${escapeHtml(ucapan.nama)}</h6><small>${ucapan.tanggal}</small></div>
           <span class="badge-status" style="background: ${statusColor};">${ucapan.status}</span>
         </div>
         <p class="mb-0">${escapeHtml(ucapan.pesan)}</p>
-      </div>
-    `;
+      </div>`;
     })
     .join("");
 
@@ -243,3 +209,61 @@ function escapeHtml(text) {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 }
+
+// =========================================
+// 6. CUSTOM FULLSCREEN LIGHTBOX GALLERY
+// =========================================
+const galleryPhotos = [
+  "assets/img/1.jpg",
+  "assets/img/2.jpg",
+  "assets/img/3.jpg",
+  "assets/img/4.jpg",
+  "assets/img/5.jpg",
+  "assets/img/6.jpg",
+  "assets/img/7.jpg",
+  "assets/img/10.jpg",
+];
+let currentPhotoIndex = 0;
+
+function openLightbox(index) {
+  currentPhotoIndex = index;
+  updateLightboxImage();
+  document.getElementById("lightbox-modal").classList.add("active");
+  document.body.style.overflow = "hidden"; // Mencegah scroll background
+}
+
+function closeLightbox(event) {
+  if (event.target.id === "lightbox-modal") doCloseLightbox();
+}
+
+function closeLightboxBtn() {
+  doCloseLightbox();
+}
+
+function doCloseLightbox() {
+  document.getElementById("lightbox-modal").classList.remove("active");
+  document.body.style.overflow = ""; // Kembalikan scroll
+}
+
+function changePhoto(direction, event) {
+  event.stopPropagation(); // Mencegah close saat klik tombol nav
+  currentPhotoIndex += direction;
+  if (currentPhotoIndex >= galleryPhotos.length) currentPhotoIndex = 0;
+  else if (currentPhotoIndex < 0) currentPhotoIndex = galleryPhotos.length - 1;
+  updateLightboxImage();
+}
+
+function updateLightboxImage() {
+  const img = document.getElementById("lightbox-img");
+  img.src = galleryPhotos[currentPhotoIndex];
+  document.getElementById("lightbox-current").textContent =
+    currentPhotoIndex + 1;
+  document.getElementById("lightbox-total").textContent = galleryPhotos.length;
+}
+
+// Tutup lightbox dengan tombol ESC atau navigasi keyboard
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") doCloseLightbox();
+  else if (event.key === "ArrowLeft") changePhoto(-1, event);
+  else if (event.key === "ArrowRight") changePhoto(1, event);
+});
