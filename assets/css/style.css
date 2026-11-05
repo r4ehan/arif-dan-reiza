@@ -720,7 +720,7 @@ body {
   margin-bottom: 10px;
 }
 .footer-logo img {
-  max-width: 80px;
+  max-width: 300px;
   height: auto;
   display: block;
   margin: 0 auto 10px auto;
@@ -742,10 +742,14 @@ body {
   opacity: 0.6;
   margin: 0;
 }
+#footer .footer-address {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+}
 
 @media (max-width: 480px) {
   .footer-logo img {
-    max-width: 100px;
+    max-width: 150px;
   }
 }
 
