@@ -267,3 +267,23 @@ document.addEventListener("keydown", function (event) {
   else if (event.key === "ArrowLeft") changePhoto(-1, event);
   else if (event.key === "ArrowRight") changePhoto(1, event);
 });
+
+// =========================================
+// 7. TOMBOL MUSIK TRANPARAN SAAT SCROLL
+// =========================================
+const musicButton = document.getElementById("music-button");
+const footer = document.getElementById("footer");
+
+window.addEventListener("scroll", function () {
+  const scrollPosition = window.scrollY + window.innerHeight;
+  const footerPosition = footer.offsetTop;
+
+  // Jika scroll sudah mendekati footer (150px sebelum footer)
+  if (scrollPosition >= footerPosition - 150) {
+    musicButton.classList.add("transparan");
+    musicButton.classList.remove("kembali");
+  } else {
+    musicButton.classList.remove("transparan");
+    musicButton.classList.add("kembali");
+  }
+});
