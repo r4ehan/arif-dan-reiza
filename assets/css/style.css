@@ -930,3 +930,22 @@ body {
 iframe {
   max-width: 100%;
 }
+
+/* Tombol musik jadi transparan saat scroll ke bawah */
+.nav-music-fab.transparan {
+  opacity: 0.25 !important;
+  transform: translateX(-50%) scale(0.85) !important;
+  pointer-events: none; /* Tidak bisa diklik saat transparan */
+}
+
+.nav-music-fab.transparan:hover {
+  opacity: 0.4 !important;
+  transform: translateX(-50%) scale(0.9) !important;
+}
+
+/* Kembalikan normal saat di atas */
+.nav-music-fab.kembali {
+  opacity: 1 !important;
+  transform: translateX(-50%) scale(1) !important;
+  pointer-events: auto !important;
+}
