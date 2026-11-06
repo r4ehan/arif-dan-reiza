@@ -287,3 +287,55 @@ window.addEventListener("scroll", function () {
     musicButton.classList.add("kembali");
   }
 });
+
+// =========================================
+// 8. COPY NOMOR REKENING
+// =========================================
+function copyRekening(nomor, button) {
+  navigator.clipboard
+    .writeText(nomor)
+    .then(() => {
+      const originalHTML = button.innerHTML;
+      button.innerHTML = '<i class="fas fa-check"></i> Tersalin';
+      button.classList.add("copied");
+
+      setTimeout(() => {
+        button.innerHTML = originalHTML;
+        button.classList.remove("copied");
+      }, 2000);
+    })
+    .catch((err) => {
+      // Fallback untuk browser lama
+      const textArea = document.createElement("textarea");
+      textArea.value = nomor;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+
+      const originalHTML = button.innerHTML;
+      button.innerHTML = '<i class="fas fa-check"></i> Tersalin';
+      button.classList.add("copied");
+      setTimeout(() => {
+        button.innerHTML = originalHTML;
+        button.classList.remove("copied");
+      }, 2000);
+    });
+}
+
+function showToast(message) {
+  // Buat toast element
+  const toast = document.createElement("div");
+  toast.className = "toast-notification";
+  toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+  document.body.appendChild(toast);
+
+  // Animasi masuk
+  setTimeout(() => toast.classList.add("show"), 10);
+
+  // Hapus setelah 3 detik
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
