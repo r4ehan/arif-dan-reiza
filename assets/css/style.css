@@ -949,3 +949,442 @@ iframe {
   transform: translateX(-50%) scale(1) !important;
   pointer-events: auto !important;
 }
+
+/* =========================================
+   15. LOVE STORY SECTION
+   ========================================= */
+.love-story-section {
+  background-color: rgba(10, 10, 10, 0.85);
+  position: relative;
+  overflow: hidden;
+}
+
+.love-story-section::before {
+  display: none; /* Efek cahaya emas dihapus */
+}
+
+.timeline-item {
+  position: relative;
+  padding: 30px 0;
+  margin-bottom: 20px;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--emas), transparent);
+  transform: translateX(-50%);
+}
+
+.timeline-item:last-child::before {
+  display: none;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: 50%;
+  top: 40px;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 70px;
+  background: var(--emas-btn-gradasi);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(224, 161, 15, 0.4);
+  z-index: 2;
+  border: 3px solid rgba(255, 233, 163, 0.5);
+}
+
+.timeline-marker i {
+  font-size: 28px;
+  color: #241a03;
+}
+
+.timeline-content {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(224, 161, 15, 0.3);
+  border-radius: 16px;
+  padding: 25px;
+  margin: 0 15%;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(224, 161, 15, 0.6);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(224, 161, 15, 0.2);
+}
+
+.timeline-content h3 {
+  font-size: 32px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.timeline-content p {
+  font-size: 15px;
+  line-height: 1.8;
+  text-align: justify;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Responsive untuk Tablet */
+@media (max-width: 992px) {
+  .timeline-item::before {
+    left: 35px;
+  }
+
+  .timeline-marker {
+    left: 35px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .timeline-marker i {
+    font-size: 24px;
+  }
+
+  .timeline-content {
+    margin: 0 0 0 120px;
+    padding: 20px;
+  }
+
+  .timeline-content h3 {
+    font-size: 28px;
+  }
+}
+
+/* Responsive untuk Mobile */
+@media (max-width: 768px) {
+  .timeline-item {
+    padding: 20px 0;
+  }
+
+  .timeline-marker {
+    left: 25px;
+    width: 50px;
+    height: 50px;
+    top: 30px;
+  }
+
+  .timeline-marker i {
+    font-size: 20px;
+  }
+
+  .timeline-content {
+    margin: 0 0 0 95px;
+    padding: 18px;
+  }
+
+  .timeline-content h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .timeline-content p {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-marker {
+    left: 20px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .timeline-marker i {
+    font-size: 18px;
+  }
+
+  .timeline-content {
+    margin: 0 0 0 80px;
+    padding: 15px;
+  }
+
+  .timeline-content h3 {
+    font-size: 22px;
+  }
+
+  .timeline-content p {
+    font-size: 13px;
+  }
+}
+
+/* =========================================
+   16. WEDDING GIFT - KARTU BANK ABU-ABU
+   ========================================= */
+.gift-section {
+  background-color: rgba(10, 10, 10, 0.85);
+  position: relative;
+}
+
+/* Container Kartu */
+.bank-card {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  height: 220px;
+  margin: 0 auto;
+  border-radius: 20px;
+  padding: 25px;
+  color: #2c3e50;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 50%, #d4d4d4 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.bank-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Pola Background Kartu */
+.bank-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(
+      circle at 20% 30%,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 50%
+    ),
+    linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.2) 50%,
+      transparent 70%
+    );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.bank-card::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Bagian Atas: Chip + Logo Bank */
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 25px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Chip Emas */
+.chip {
+  width: 50px;
+  height: 38px;
+  background: linear-gradient(135deg, #f0c27f 0%, #d4a84b 50%, #b8860b 100%);
+  border-radius: 8px;
+  position: relative;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.chip::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.3);
+}
+.chip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  bottom: 10%;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Logo Bank (Gambar) */
+.bank-name {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.bank-logo-img {
+  height: 35px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
+}
+
+.bank-card:hover .bank-logo-img {
+  transform: scale(1.05);
+}
+
+/* Nomor Rekening */
+.card-number {
+  font-family: "Courier New", monospace;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+  color: #2c3e50;
+}
+
+/* Bagian Bawah: Nama + Tombol Salin */
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+  z-index: 2;
+}
+
+.card-holder {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-holder .label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(44, 62, 80, 0.6);
+  text-transform: uppercase;
+}
+
+.card-holder .name {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #2c3e50;
+}
+
+/* Tombol Salin */
+.btn-salin {
+  background: rgba(44, 62, 80, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(44, 62, 80, 0.2);
+  color: #2c3e50;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-salin:hover {
+  background: rgba(44, 62, 80, 0.25);
+  transform: scale(1.05);
+}
+
+.btn-salin:active {
+  transform: scale(0.95);
+}
+
+.btn-salin.copied {
+  background: #28a745 !important;
+  border-color: #28a745 !important;
+  color: #ffffff !important;
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+  .bank-card {
+    height: 200px;
+    padding: 20px;
+  }
+  .card-number {
+    font-size: 18px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+  }
+  .bank-logo-img {
+    height: 28px;
+  }
+  .card-holder .name {
+    font-size: 12px;
+  }
+  .btn-salin {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bank-card {
+    height: 180px;
+    padding: 18px;
+  }
+  .card-number {
+    font-size: 16px;
+    letter-spacing: 1.5px;
+  }
+  .bank-logo-img {
+    height: 24px;
+  }
+}
+
+/* Toast Notification */
+.toast-notification {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: #ffffff;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+  z-index: 99999;
+  opacity: 0;
+  transition: all 0.4s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.toast-notification.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
